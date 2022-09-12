@@ -1,8 +1,8 @@
 module.exports = {
     host: 'localhost',
-    user: 'jagritiyoga',
-    password: 'Tech2020',
-    database: 'jagritiyogadb',
+    user: 'root',
+    password: 'pratik02',
+    database: 'food-ecom',
     dialect: 'mysql',
     pool: {
         max: 5,
