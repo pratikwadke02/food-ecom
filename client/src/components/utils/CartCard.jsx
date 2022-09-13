@@ -17,19 +17,16 @@ const CartCard = (props) => {
         }}
       >
         <Box sx={{ display:'flex', flexDirection:{xs:'column', md:'row'}  }}>
-          <img src={images.product} alt="" style={{ borderRadius: "5px", height:'auto' }} />
+          <img src={image} alt="" style={{ borderRadius: "5px", height:'auto' }} />
           <Box sx={{display:'flex', flexDirection:'column', ml:{xs:0, md:2}, mt:{xs:2, md:0}}}>
           <Typography
-              variant="h6"
+              variant="h4"
               sx={{
                 color: theme.palette.primary.main,
                 fontWeight: theme.typography.fontWeightMedium,
               }}
             >
               {name}
-            </Typography>
-            <Typography variant="h7" sx={{color:theme.palette.text.main, fontWeight: theme.typography.fontWeightMedium,mt:1 }}>
-              {desc}
             </Typography>
           </Box>
         </Box>
@@ -49,10 +46,8 @@ const CartCard = (props) => {
                 fontWeight: theme.typography.fontWeightMedium,
               }}
             >
-              ₹{discountPrice}{" "}
-              <Typography variant="h7" sx={{ color: theme.palette.text.dark }}>
-                <s>₹{price}</s>{" "}
-              </Typography>
+              ₹{price}
+              
             </Typography>
           </Box>
           <Box>
@@ -81,7 +76,7 @@ const CartCard = (props) => {
             </Typography>
           </Button>
           <Typography variant="h6" sx={{ ml: 2, mr: 2 }}>
-            1
+            {quantity}
           </Typography>
           <Button
             sx={{

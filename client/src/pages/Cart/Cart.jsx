@@ -4,11 +4,21 @@ import { useSelector } from "react-redux";
 import OrderComponent from "../../components/OrderComponent/OrderComponent";
 import {Link} from 'react-router-dom'
 import {theme} from '../../theme'
+import PaymentSummary from "../../components/PaymentSummary/PaymentSummary";
 
 const Cart = () => {
 
 
   const cartData = useSelector((state) => state.cart.cart);
+
+  function getTotalPrice() {
+    let total = 0;
+    cartData.forEach((item) => {
+      total += item.price * item.quantity;
+    });
+    console.log(total);
+    return total;
+  }
 
   return (
     <>
@@ -91,14 +101,10 @@ const Cart = () => {
                 mt: { xs: 4, md: 0 },
               }}
             >
-              {/* <PaymentDetails
-                totalDiscountPrice={getTotalPrice().totalDiscountPrice}
-                totalPrice={getTotalPrice().totalPrice}
-                totalDiscount={calculateDiscount(
-                  getTotalPrice().totalPrice,
-                  getTotalPrice().totalDiscountPrice
-                )}
-              /> */}
+              <PaymentSummary
+                
+                totalPrice={getTotalPrice()}
+              />
             </Box>
           </Box>
         )}

@@ -9,7 +9,8 @@ const OrderComponent = () => {
 
     // const [cartData, setCartData] = useState([])
 
-    // const productIdData  = (useSelector(state => state.cart.cart));
+    const cartData  = (useSelector(state => state.cart.cart));
+    console.log(cartData)
 
     // useEffect(() => {
     //   const getCartData = async () => {
@@ -27,17 +28,17 @@ const OrderComponent = () => {
             <Typography variant="h5" sx={{fontWeight: theme.typography.fontWeightMedium,}}>Order Summary</Typography>
         </Box>
         <Box sx={{mt:2, width:'100%'}}>
-        {/* {
+        {
             cartData.map((item, index) => {
               return (
                 <>
                 <Box sx={{width:'100%',mb:4}}>
-                  <CartCard id={item.id} name={item.name} image={item.image} desc={item.description} price={item.price} quantity={item.quantity} discountPrice={item.discountPrice} />
+                  <CartCard id={item.id} name={item.name} image={item.image} price={item.price} quantity={item.quantity}  />
                 </Box>
                 </>
               )
             } )
-          } */}
+          }
         </Box>
     </Box>
     </>

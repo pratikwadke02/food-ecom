@@ -12,9 +12,33 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {theme} from '../../theme';
+import {Link} from 'react-router-dom';
 
-const pages = ['Products', 'Cart'];
-const settings = ['Profile', 'Logout'];
+const pages = [
+    {
+        name: 'Home',
+        path: '/',
+    },
+    {
+        name: 'About',
+        path: '/about',
+    },
+    {
+        name: 'Cart',
+        path: '/cart',
+    },
+];
+
+const settings = [
+    {
+        name: 'Profile',
+        path: '/profile',
+    },
+    {
+        name: 'Logout',
+        path: '/logout',
+    },
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -47,7 +71,7 @@ const ResponsiveAppBar = () => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs:'flex' },
               textDecoration: 'none',
               color: theme.palette.primary.main,
               fontWeight: theme.typography.fontWeightBold,
@@ -55,42 +79,6 @@ const ResponsiveAppBar = () => {
           >
             Momo
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" variant='h6' sx={{color:theme.palette.primary.main}}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
           <Typography
             variant="h5"
             noWrap
@@ -105,15 +93,17 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs:'flex' } }}>
+            {pages.map((page, index) => (
+            <Link to={page.path} style={{textDecoration:'none'}}>
               <Button
-                key={page}
+                key={index}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: 'block' }}
               >
-                <Typography textAlign="center" variant='h6'>{page}</Typography>
+                <Typography textAlign="center" variant='h6'>{page.name}</Typography>
               </Button>
+            </Link>
             ))}
           </Box>
 
@@ -139,9 +129,9 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" variant='h6'>{setting}</Typography>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" variant='h6'>{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

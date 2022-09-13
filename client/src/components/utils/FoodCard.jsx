@@ -3,10 +3,27 @@ import { Box, Icon, Typography, Button, Card } from "@mui/material";
 import { theme } from "../../theme";
 import { images } from "../../constants";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import {addToCart} from '../../actions/cart'
+import { useDispatch } from "react-redux";
 
 const FoodCard = (props) => {
 
   const {name, price, rating, image, id} = props;
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    const product = {
+      id,
+      name,
+      price,
+      image,
+      quantity: 1,
+    };
+    dispatch(addToCart(product));
+  }
+
+
 
   return (
     <Card sx={{ width: "100%", maxWidth:'400px', backgroundColor:theme.palette.background.light, p:2 }}>
@@ -57,6 +74,7 @@ const FoodCard = (props) => {
             color: theme.palette.background.light,
             width: "100%",
           }}
+          onClick={handleAddToCart}
         >
           Add to Cart
         </Button>

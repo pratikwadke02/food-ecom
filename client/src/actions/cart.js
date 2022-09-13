@@ -1,9 +1,9 @@
 import { GET_CART, ADD_TO_CART } from "../constants/actionTypes";
 import * as api from '../api/index.js'
 
-export const addToCart = (id) => async(dispatch) => {
+export const addToCart = (data) => async(dispatch) => {
     try{
-        const {data} = await api.getProductById(id);
+        console.log(data);
         dispatch(
             {
                 type: ADD_TO_CART,
