@@ -2,9 +2,25 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { images } from "../../constants";
 import { theme } from "../../theme";
+import { useDispatch } from "react-redux";
+import {Increment, Decrement} from '../../actions/cart'
 
 const CartCard = (props) => {
-  const { name, image, desc, price, quantity, discountPrice, id } = props;
+  const {id,  name, image, price, quantity,} = props;
+
+  const [qty, setQty] = React.useState(quantity);
+
+  const dispatch = useDispatch();
+
+  const handleIncrement = () => {
+    dispatch(Increment(id));
+    setQty(qty + 1);
+  };
+
+  const handleDecrement = () => {
+    dispatch(Decrement(id));
+    setQty(qty - 1);
+  };
 
   return (
     <>
@@ -17,13 +33,13 @@ const CartCard = (props) => {
         }}
       >
         <Box sx={{ display:'flex', flexDirection:{xs:'column', md:'row'}  }}>
-          <img src={image} alt="" style={{ borderRadius: "5px", height:'auto' }} />
+          <img src={image} alt="" style={{ borderRadius: "5px", height:'auto', width:'300px' }} />
           <Box sx={{display:'flex', flexDirection:'column', ml:{xs:0, md:2}, mt:{xs:2, md:0}}}>
           <Typography
-              variant="h4"
+              variant="h5"
               sx={{
-                color: theme.palette.primary.main,
-                fontWeight: theme.typography.fontWeightMedium,
+                color: theme.palette.text.main,
+                fontWeight: theme.typography.fontWeightBold,
               }}
             >
               {name}
@@ -50,7 +66,7 @@ const CartCard = (props) => {
               
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{mt:1}}>
             <Box
           sx={{
             mt:{xs:1, md:0},
@@ -59,6 +75,8 @@ const CartCard = (props) => {
             flexDirection: "row",
             alignItems: "center",
             border: "1px solid" + theme.palette.text.light,
+            
+            backgroundColor: theme.palette.background.default,
           }}
         >
           <Button
@@ -66,7 +84,9 @@ const CartCard = (props) => {
               minWidth:'20px',
               borderRadius: "0px",
               borderRight: "1px solid" + theme.palette.text.light,
+              backgroundColor: theme.palette.background.default,
             }}
+            onClick={()=>handleIncrement(id)}
           >
             <Typography
               variant="h6"
@@ -75,15 +95,19 @@ const CartCard = (props) => {
               +
             </Typography>
           </Button>
-          <Typography variant="h6" sx={{ ml: 2, mr: 2 }}>
-            {quantity}
+          <Typography variant="h6" sx={{ ml: 2, mr: 2, 
+              backgroundColor: theme.palette.background.default, }}>
+            {qty}
           </Typography>
           <Button
             sx={{
               minWidth:'20px',
               borderRadius: "0px",
               borderLeft: "1px solid" + theme.palette.text.light,
+              
+              backgroundColor: theme.palette.background.default,
             }}
+            onClick={()=>handleDecrement(id)}
           >
             <Typography
               variant="h6"

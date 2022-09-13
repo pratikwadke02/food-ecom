@@ -20,6 +20,23 @@ const cartReducer = (state = { cart: [] }, action) => {
             console.log("inside cart reducer");
             console.log(action.payload);
             return { ...state, cart: action.payload };
+        case actionType.INCREMENT:
+            console.log(action.id);
+            state.cart.map((item, index) => {
+                console.log(item.id);
+                if(item.id == action.id){
+                    item.quantity += 1;
+                    console.log(item.quantity);
+                }
+            })
+            return state;
+        case actionType.DECREMENT:
+            state.cart.map((item, index) => {
+                if(item.id == action.id){
+                    item.quantity -= 1;
+                }
+            })
+            return state;
         default:
             return state;
     }

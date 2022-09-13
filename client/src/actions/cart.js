@@ -1,4 +1,4 @@
-import { GET_CART, ADD_TO_CART } from "../constants/actionTypes";
+import { INCREMENT, DECREMENT, ADD_TO_CART } from "../constants/actionTypes";
 import * as api from '../api/index.js'
 
 export const addToCart = (data) => async(dispatch) => {
@@ -15,4 +15,29 @@ export const addToCart = (data) => async(dispatch) => {
     }
 };
 
- 
+export const Increment = (id) => async(dispatch) => {
+    console.log(id);
+    try{
+        dispatch(
+            {
+                type: INCREMENT,
+                id
+            }
+        )
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const Decrement = (id) => async(dispatch) => {
+    try{
+        dispatch(
+            {
+                type: DECREMENT,
+                id
+            }
+        )
+    }catch(error){
+        console.log(error);
+    }
+}

@@ -26,7 +26,7 @@ const PopularDishes = () => {
             price: 250,
             rating: 4.5,
             image: images.dish_5,
-            id: 4,
+            id: 3,
         },
     ];
 

@@ -10,21 +10,21 @@ const Menu = () => {
       price: 220,
       rating: 4.5,
       image: images.menu_1,
-      id: 1,
+      id: 4,
     },
     {
       name: "Double Decker Burger",
       price: 99,
       rating: 4.5,
       image: images.menu_2,
-      id: 2,
+      id: 5,
     },
     {
       name: "Butter Rumali Roti",
       price: 25,
       rating: 4.5,
       image: images.menu_3,
-      id: 3,
+      id: 6,
     },
   ];
 
@@ -34,19 +34,21 @@ const Menu = () => {
       price: 149,
       rating: 4.5,
       image: images.menu_4,
-      id: 4,
+      id: 7,
     },
     {
       name: "Choco Fruit Plate",
       price: 310,
       rating: 4.5,
       image: images.menu_5,
+      id: 8,
     },
     {
       name: "Cup Cake",
       price: 150,
       rating: 4.5,
       image: images.menu_6,
+      id: 9,
     },
   ];
 
@@ -56,18 +58,21 @@ const Menu = () => {
       price: 140,
       rating: 4.5,
       image: images.menu_7,
+      id: 10,
     },
     {
       name: "Mix Fruit Juice",
       price: 220,
       rating: 4.5,
       image: images.menu_8,
+      id: 11,
     },
     {
       name: "Lemon Juice",
       price: 130,
       rating: 4.5,
       image: images.menu_9,
+      id: 12,
     },
   ];
 

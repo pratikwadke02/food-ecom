@@ -45,7 +45,7 @@ const PaymentSummary = (props) => {
       <Box sx={{ width: "100%" }}>
         <Box>
           <Typography
-            variant="h5"
+            variant="h3"
             sx={{ fontWeight: theme.typography.fontWeightMedium }}
           >
             Payment Summary
