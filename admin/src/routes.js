@@ -26,7 +26,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { path: 'user', element: <User /> },
-        { path: 'student', element: <Student />},
+        { path: 'orders', element: <Student />},
       ],
     },
     {

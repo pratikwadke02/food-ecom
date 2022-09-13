@@ -81,7 +81,7 @@ const Menu = () => {
       }}
     >
       <Box sx={{textAlign:'center'}}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mt: 5 }}>
+        <Typography variant="h3" color="primary" sx={{ fontWeight: "bold", mt: 5 }}>
           OUR MENU
         </Typography>
       </Box>

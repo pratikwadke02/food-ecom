@@ -18,7 +18,7 @@ const navConfig = [
   },
   {
     title: 'Orders',
-    path: '/dashboard/student',
+    path: '/dashboard/orders',
     icon: getIcon('eva:people-fill'),
   },
   // {

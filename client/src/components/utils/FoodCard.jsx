@@ -36,6 +36,8 @@ const FoodCard = (props) => {
       </Box>
       <Box
         sx={{
+          mt:2,
+          mb:1,
           display: "flex",
           width: "100%",
           justifyContent: "space-between",
@@ -43,7 +45,7 @@ const FoodCard = (props) => {
         }}
       >
         <Typography
-          variant="h4"
+          variant="h5"
           sx={{
             fontWeight: theme.typography.fontWeightBold,
             color: theme.palette.text.main,
@@ -57,6 +59,7 @@ const FoodCard = (props) => {
       </Box>
       <Box
         sx={{
+          mt:1,
           display: "flex",
           width: "100%",
           justifyContent: "space-between",

@@ -5,6 +5,7 @@ import PopularDishes from "../../components/SectionOne/PopularDishes";
 import Navbar from "../../components/Navbar/Navbar";
 import Menu from "../../components/SectionTwo/Menu";
 import Footer from "../../components/Footer/Footer";
+import Logo from "../../components/SectionThree/Logo";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <HeadBanner />
       <PopularDishes />
       <Menu />
+      <Logo />
       <Footer />
     </>
   );
