@@ -26,10 +26,6 @@ function UncontrolledExample() {
             title: "Steam Cheese Momo",
         },
         {
-            iamge: images.streammomo,
-            title: "Steam Momo",
-        },
-        {
             image: images.tandurmomo,
             title: "Tandur Momo",
         }
@@ -72,7 +68,7 @@ function UncontrolledExample() {
                                     className="d-block w-100"
                                     src={item.image}
                                     alt="First slide"
-                                    style={{ width:'100%', height:'auto', maxHeight:'600px' }}
+                                    style={{ width:'100%', height:'100%', maxHeight:'600px' }}
                                 />
                             </Box>
                         </Box>

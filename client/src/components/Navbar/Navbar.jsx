@@ -13,15 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {theme} from '../../theme';
 import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {logout} from '../../actions/auth';
 
 const pages = [
     {
         name: 'Home',
         path: '/',
-    },
-    {
-        name: 'About',
-        path: '/about',
     },
     {
         name: 'Cart',
@@ -31,12 +30,7 @@ const pages = [
 
 const settings = [
     {
-        name: 'Profile',
-        path: '/profile',
-    },
-    {
         name: 'Logout',
-        path: '/logout',
     },
 ];
 
@@ -57,6 +51,14 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout(navigate));
+    handleCloseUserMenu();
   };
 
   return (
@@ -130,7 +132,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                <MenuItem key={index} onClick={handleLogout}>
                   <Typography textAlign="center" variant='h6'>{setting.name}</Typography>
                 </MenuItem>
               ))}

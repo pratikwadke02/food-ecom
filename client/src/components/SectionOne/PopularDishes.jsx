@@ -22,13 +22,6 @@ const PopularDishes = () => {
             id: 2,
         },
         {
-            name: "Momo Pizza",
-            price: 200,
-            rating: 4.5,
-            image: images.dish_4,
-            id: 3,
-        },
-        {
             name: "Choco Cake",
             price: 250,
             rating: 4.5,
@@ -40,10 +33,15 @@ const PopularDishes = () => {
   return (
     <>
     <Box sx={{
-        width: "100%",
+        width: "100%", mt:5, backgroundColor:theme.palette.primary.main,p:4,
     }}>
+        <Box sx={{textAlign:'center', mb:3}}>
+            <Typography variant="h3" sx={{color:theme.palette.background.light, fontWeight:theme.typography.fontWeightBold}}>
+                Popular Dishes
+            </Typography>
+        </Box>
         <Box sx={{
-            display:'flex', flexDirection:'row', justifyContent:'space-between', width:'100%', alignItems:'center', mt:5
+            display:'flex', flexDirection:'row', justifyContent:'center', width:'100%', alignItems:'center', m:'auto' , maxWidth:'1400px'
         }}>
             {
                 popularDishesData.map((item, index) => {

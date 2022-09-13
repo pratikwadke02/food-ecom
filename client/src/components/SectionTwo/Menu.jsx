@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import FoodCard from "../utils/FoodCard";
 import { images } from "../../constants";
 
@@ -75,8 +75,15 @@ const Menu = () => {
     <Box
       sx={{
         width: "100%",
+        maxWidth: "1400px",
+        m:'auto',
       }}
     >
+      <Box sx={{textAlign:'center'}}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", mt: 5 }}>
+          OUR MENU
+        </Typography>
+      </Box>
       <Box
         sx={{
           display: "flex",

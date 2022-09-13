@@ -26,12 +26,12 @@ const FoodCard = (props) => {
 
 
   return (
-    <Card sx={{ width: "100%", maxWidth:'400px', backgroundColor:theme.palette.background.light, p:2 }}>
+    <Card sx={{ width: "100%",height:'100%', maxWidth:'400px', backgroundColor:theme.palette.background.light, p:2 }}>
       <Box sx={{display:'flex', justifyContent:'center'}}>
         <img 
         src={image} 
         alt="" 
-        style={{ width: "100%", height: "100%", maxHeight: "400px" }}
+        style={{ width: "100%", height: "200px" }}
         />
       </Box>
       <Box
@@ -43,15 +43,15 @@ const FoodCard = (props) => {
         }}
       >
         <Typography
-          variant="h5"
+          variant="h4"
           sx={{
             fontWeight: theme.typography.fontWeightBold,
-            color: theme.palette.primary.main,
+            color: theme.palette.text.main,
           }}
         >
           {name}
         </Typography>
-        <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
+        <Typography variant="h5" sx={{ color: theme.palette.text.main }}>
           Rs. {price}
         </Typography>
       </Box>
@@ -64,8 +64,8 @@ const FoodCard = (props) => {
         }}
       >
         <Box sx={{ display: "flex", width: "100%", alignItems: "center" }}>
-          <StarBorderIcon />
-          <Typography variant="h6" sx={{ color: theme.palette.primary.main }}>
+          <StarBorderIcon  sx={{ color: theme.palette.primary.main }} />
+          <Typography variant="h6" sx={{ color: theme.palette.text.main }}>
             {rating}
           </Typography>
         </Box>
