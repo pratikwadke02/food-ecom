@@ -2,7 +2,7 @@ import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 // material
 import {
   Card,
@@ -33,11 +33,11 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: true },
-  { id: 'quantity', label: 'Quantity', alignRight: true },
-  { id: 'price', label: 'Price', alignRight: true },
-  { id: 'discountPrice', label: 'Discount Price', alignRight: true },
-  { id: 'description', label: 'Description', alignRight: true },
-  // { id: '' },
+  { id: 'courseName', label: 'Course Name', alignRight: true },
+  { id: 'phone', label: 'Phone', alignRight: true },
+  { id: 'email', label: 'Email', alignRight: true },
+  { id: 'paymentStatus', label: 'Payment Status', alignRight: true },
+  { id: '' },
 ];
 
 // ----------------------------------------------------------------------
@@ -72,18 +72,16 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function User() {
-  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getProductsData = async () => {
-      const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllProducts');
-      setProducts(data);
-      console.log(products);
-    };
-    getProductsData();
+    // const getUserData = async () => {
+    //   const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllStudents');
+    //   setUsers(data);
+    //   console.log(users);
+    // };
+    // getUserData();
   }, []);
-
-  console.log(products);
 
   const [page, setPage] = useState(0);
 
@@ -105,7 +103,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = products.map((n) => n.id);
+      const newSelecteds = users.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -140,9 +138,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
-  const filteredUsers = applySortFilter(products, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(users, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -169,14 +167,14 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={products.length}
+                  rowCount={users.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((product) => {
-                    const { id, name, stock, price, discountPrice, description } = product;
+                  {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                    const { id, firstName,lastName, courseName, phone, email } = user;
                     const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
@@ -194,27 +192,27 @@ export default function User() {
                         <TableCell align="center">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {firstName} {lastName}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{stock}</TableCell>
-                        <TableCell align="left">{price}</TableCell>
-                        <TableCell align="left">{discountPrice}</TableCell>
+                        <TableCell align="left">{courseName}</TableCell>
+                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
                         <TableCell align="left">
                           {/* <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
                           </Label>  */}
-                          {description}
+                          Payment Status
                         </TableCell>
 
-                        {/* <TableCell align="right">
+                        <TableCell align="right">
                           <RouterLink to ={`/dashboard/student/${id}`} style={{textDecoration:'none'}}>
                           <Button variant="contained">
                             View
                           </Button>
                           </RouterLink>
-                        </TableCell> */}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -241,7 +239,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={products.length}
+            count={users.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

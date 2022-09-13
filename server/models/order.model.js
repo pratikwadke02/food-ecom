@@ -5,8 +5,20 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    user_id: {
-      type: Sequelize.INTEGER,
+    address: {
+        type: Sequelize.STRING,
+    },
+    city: {
+        type: Sequelize.STRING,
+    },
+    pincode: {
+        type: Sequelize.STRING,
+    },
+    total: {
+        type: Sequelize.STRING,
+    },
+    foodItems: {
+        type: Sequelize.JSON,
     },
   });
   return Order;

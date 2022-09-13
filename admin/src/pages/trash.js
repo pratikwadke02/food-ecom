@@ -18,6 +18,10 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box
 } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -27,17 +31,16 @@ import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/user';
 // mock
-// import USERLIST from '../_mock/user';
+import USERLIST from '../_mock/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'email', label: 'Email', alignRight: true },
-  { id: 'password', label: 'Password', alignRight: true },
-//   { id: 'phone', label: 'Phone', alignRight: true },
-//   { id: 'email', label: 'Email', alignRight: true },
-//   { id: 'paymentStatus', label: 'Payment Status', alignRight: true },
-  { id: '' },
+  { id: 'name', label: 'Name', alignRight: false },
+  { id: 'courseName', label: 'Course Name', alignRight: false },
+  { id: 'email', label: 'Email', alignRight: false },
+  { id: 'phone', label: 'Phone', alignRight: false },
+  { id: 'paymentStatus', label: 'Payment Status', alignRight: false },
 ];
 
 // ----------------------------------------------------------------------
@@ -76,7 +79,7 @@ export default function User() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllUsers');
+      const { data } = await axios.get('http://localhost:8080/api/yoga/getAllStudents');
       setUsers(data);
       console.log(users);
     };
@@ -103,18 +106,18 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.id);
+      const newSelecteds = USERLIST.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -138,22 +141,27 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-  const filteredUsers = applySortFilter(users, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
+  const [expanded, setExpanded] = useState(false);
+
+  const handleChange = (id) => (event, isExpanded) => {
+    setExpanded(isExpanded ? id : false);
+  };
 
   return (
     <Page title="User">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            Student
           </Typography>
           <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+            New Student
           </Button>
         </Stack>
 
@@ -161,77 +169,70 @@ export default function User() {
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
-                <UserListHead
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={users.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
-                />
-                <TableBody>
-                  {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
-                    const { id, password, email } = user;
-                    const isItemSelected = selected.indexOf(id) !== -1;
+            <Box sx={{display:'flex', flexDirection:'column',pr:2, pl:2}}>
+            <Box sx={{display:'flex', width:'100%',flexDirection:'row', justifyContent:'space-between',}}>
+              {
+                TABLE_HEAD.map((head, index) => {
+                  return (
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h6">
+                        {head.label}
+                      </Typography>
+                    </Box>
+                  )
+                })
+              }
+              </Box>
+              {
+                users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user, index) => {
+                  return(
+                    <>
+                    <Accordion expanded={expanded === index} onChange={handleChange(index)} sx={{mt:2}}>
+                      <AccordionSummary>
+                    <Box sx={{display:'flex', width:'100%', flexDirection:'row', justifyContent:'space-between'}}>
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h7">
+                        {user.firstName} {user.lastName}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h7">
+                        {user.courseName}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h7">
+                        {user.phone}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h7">
+                        {user.email}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
+                      <Typography variant="h7">
+                        Payment Status
+                      </Typography>
+                    </Box>
+                    </Box>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Box>
+                          <Typography variant="h7">
+                            Address: {user.address}
+                          </Typography>
+                        </Box>
+                      </AccordionDetails>
+                    </Accordion>
+                    </>
 
-                    return (
-                      <TableRow
-                        hover
-                        key={id}
-                        tabIndex={-1}
-                        role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, id)} />
-                        </TableCell>
-                        <TableCell align="center">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Typography variant="subtitle2" noWrap>
-                              {email}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="left">{password}</TableCell>
-                        {/* <TableCell align="left">
-                          {/* <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
-                            {sentenceCase(status)}
-                          </Label>  
-                          Payment Status
-                        </TableCell> */}
+                  )
+                })
+              }
+            
+            </Box>
 
-                        {/* <TableCell align="right">
-                          <RouterLink to ={`/dashboard/student/${id}`} style={{textDecoration:'none'}}>
-                          <Button variant="contained">
-                            View
-                          </Button>
-                          </RouterLink>
-                        </TableCell> */}
-                      </TableRow>
-                    );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-
-                {isUserNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
           </Scrollbar>
 
           <TablePagination
@@ -248,3 +249,5 @@ export default function User() {
     </Page>
   );
 }
+
+

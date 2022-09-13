@@ -17,30 +17,55 @@ const navConfig = [
     icon: getIcon('eva:people-fill'),
   },
   {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon('eva:shopping-bag-fill'),
+    title: 'Orders',
+    path: '/dashboard/student',
+    icon: getIcon('eva:people-fill'),
   },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon('eva:file-text-fill'),
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: getIcon('eva:lock-fill'),
-  },
-  {
-    title: 'register',
-    path: '/register',
-    icon: getIcon('eva:person-add-fill'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: getIcon('eva:alert-triangle-fill'),
-  },
+  // {
+  //   title: 'Responses',
+  //   path: '/dashboard/response',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
+  // {
+  //   title: 'Enquiries',
+  //   path: '/dashboard/enquiry',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
+  // {
+  //   title: 'Add Product',
+  //   path: '/dashboard/product',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
+  // {
+  //   title: 'Products',
+  //   path: '/dashboard/products',
+  //   icon: getIcon('eva:shopping-bag-fill'),
+  // },
+  // {
+  //   title: 'Invoice',
+  //   path: '/dashboard/invoice',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
+  // {
+  //   title: 'blog',
+  //   path: '/dashboard/blog',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
+  // {
+  //   title: 'login',
+  //   path: '/login',
+  //   icon: getIcon('eva:lock-fill'),
+  // },
+  // {
+  //   title: 'register',
+  //   path: '/register',
+  //   icon: getIcon('eva:person-add-fill'),
+  // },
+  // {
+  //   title: 'Not found',
+  //   path: '/404',
+  //   icon: getIcon('eva:alert-triangle-fill'),
+  // },
 ];
 
 export default navConfig;

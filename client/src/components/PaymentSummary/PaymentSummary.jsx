@@ -4,6 +4,7 @@ import { theme } from "../../theme";
 import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField/TextField";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const PaymentSummary = (props) => {
   const { totalPrice } = props;
@@ -16,6 +17,7 @@ const PaymentSummary = (props) => {
     city: "",
     pincode: "",
     total: totalPrice,
+    foodItems: foodItems,
   });
 
   const handleChange = (e) => {
@@ -27,6 +29,15 @@ const PaymentSummary = (props) => {
       };
     });
     console.log(OrderDetails);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try{
+      axios.post("http://localhost:5000/api/food-ecom/createOrder", OrderDetails);
+    }catch(error){
+      console.log(error);
+    }
   };
 
   return (
@@ -108,6 +119,7 @@ const PaymentSummary = (props) => {
               variant="contained"
               color="primary"
               sx={{ width: "100%", maxWidth: "200px" }}
+              onClick={handleSubmit}
             >
               <Typography
                 variant="h6"

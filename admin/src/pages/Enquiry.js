@@ -33,11 +33,11 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: true },
-  { id: 'quantity', label: 'Quantity', alignRight: true },
-  { id: 'price', label: 'Price', alignRight: true },
-  { id: 'discountPrice', label: 'Discount Price', alignRight: true },
-  { id: 'description', label: 'Description', alignRight: true },
-  // { id: '' },
+//   { id: 'courseName', label: 'Course Name', alignRight: false },
+  { id: 'phone', label: 'Phone', alignRight: true },
+  { id: 'email', label: 'Email', alignRight: true },
+  { id: 'enquiry', label: 'Enquiry', alignRight: true },
+  { id: '' },
 ];
 
 // ----------------------------------------------------------------------
@@ -71,19 +71,17 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
-  const [products, setProducts] = useState([]);
+export default function Enquiry() {
+    const [enquiry, setEnquiry] = useState([]);
 
-  useEffect(() => {
-    const getProductsData = async () => {
-      const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllProducts');
-      setProducts(data);
-      console.log(products);
-    };
-    getProductsData();
-  }, []);
-
-  console.log(products);
+    useEffect(() => {
+        const getEnquiryData = async () => {
+          const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllEnquiries');
+          setEnquiry(data);
+          console.log(enquiry);
+        };
+        getEnquiryData();
+      }, []);
 
   const [page, setPage] = useState(0);
 
@@ -105,7 +103,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = products.map((n) => n.id);
+      const newSelecteds = enquiry.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -140,9 +138,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - enquiry.length) : 0;
 
-  const filteredUsers = applySortFilter(products, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(enquiry, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -152,10 +150,10 @@ export default function User() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Student
+            Enquiry
           </Typography>
           <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Student
+            New Enquiry
           </Button>
         </Stack>
 
@@ -169,14 +167,14 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={products.length}
+                  rowCount={enquiry.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((product) => {
-                    const { id, name, stock, price, discountPrice, description } = product;
+                  {enquiry.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                    const { id, name, message, phone, email } = user;
                     const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
@@ -198,18 +196,17 @@ export default function User() {
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{stock}</TableCell>
-                        <TableCell align="left">{price}</TableCell>
-                        <TableCell align="left">{discountPrice}</TableCell>
-                        <TableCell align="left">
-                          {/* <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
+                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
+                        {/* <TableCell align="center">
+                           <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
-                          </Label>  */}
-                          {description}
-                        </TableCell>
-
+                          </Label>  
+                          Payment Status
+                    </TableCell> */}
+                        <TableCell align="left">{message}</TableCell>
                         {/* <TableCell align="right">
-                          <RouterLink to ={`/dashboard/student/${id}`} style={{textDecoration:'none'}}>
+                          <RouterLink to ={`/dashboard/student/${id}`}>
                           <Button variant="contained">
                             View
                           </Button>
@@ -241,7 +238,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={products.length}
+            count={enquiry.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -2,7 +2,7 @@ import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 // material
 import {
   Card,
@@ -33,11 +33,11 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: true },
-  { id: 'quantity', label: 'Quantity', alignRight: true },
-  { id: 'price', label: 'Price', alignRight: true },
-  { id: 'discountPrice', label: 'Discount Price', alignRight: true },
-  { id: 'description', label: 'Description', alignRight: true },
-  // { id: '' },
+  { id: 'phone', label: 'Phone', alignRight: true },
+  { id: 'email', label: 'Email', alignRight: true },
+  { id: 'subject', label: 'Subject', alignRight: true },
+  { id: 'response', label: 'Response', alignRight: true },
+  { id: '' },
 ];
 
 // ----------------------------------------------------------------------
@@ -71,19 +71,17 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
-  const [products, setProducts] = useState([]);
+export default function Response() {
+    const [response, setResponse] = useState([]);
 
-  useEffect(() => {
-    const getProductsData = async () => {
-      const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllProducts');
-      setProducts(data);
-      console.log(products);
-    };
-    getProductsData();
-  }, []);
-
-  console.log(products);
+    useEffect(() => {
+        // const getResponseData = async () => {
+        //   const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllResponses');
+        //   setResponse(data);
+        //   console.log(response);
+        // };
+        // getResponseData();
+      }, []);
 
   const [page, setPage] = useState(0);
 
@@ -105,7 +103,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = products.map((n) => n.id);
+      const newSelecteds = response.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -140,9 +138,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - response.length) : 0;
 
-  const filteredUsers = applySortFilter(products, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(response, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -152,10 +150,10 @@ export default function User() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Student
+            Response
           </Typography>
           <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Student
+            New Response
           </Button>
         </Stack>
 
@@ -169,14 +167,14 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={products.length}
+                  rowCount={response.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((product) => {
-                    const { id, name, stock, price, discountPrice, description } = product;
+                  {response.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                    const { id, name, subject, message, phone, email } = user;
                     const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
@@ -198,18 +196,19 @@ export default function User() {
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{stock}</TableCell>
-                        <TableCell align="left">{price}</TableCell>
-                        <TableCell align="left">{discountPrice}</TableCell>
-                        <TableCell align="left">
+                        <TableCell align="left">{phone}</TableCell>
+                        <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{subject}</TableCell>
+                        <TableCell align="left">{message}</TableCell>
+                        {/* <TableCell align="center">
                           {/* <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
-                          </Label>  */}
-                          {description}
-                        </TableCell>
+                          </Label>  
+                          Payment Status
+                        </TableCell> */}
 
                         {/* <TableCell align="right">
-                          <RouterLink to ={`/dashboard/student/${id}`} style={{textDecoration:'none'}}>
+                          <RouterLink to ={`/dashboard/student/${id}`}>
                           <Button variant="contained">
                             View
                           </Button>
@@ -241,7 +240,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={products.length}
+            count={response.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
