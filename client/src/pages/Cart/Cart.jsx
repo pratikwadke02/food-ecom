@@ -53,7 +53,7 @@ const Cart = () => {
             >
               Cart Is Empty
             </Typography>
-            <Link to="/shop" style={{textDecoration:'none'}}>
+            <Link to="/home" style={{textDecoration:'none'}}>
               <Button variant="contained" color="primary" sx={{mt:3}}>
                 <Typography variant="h6">Shop Now</Typography>
               </Button>

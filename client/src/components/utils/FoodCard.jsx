@@ -78,7 +78,7 @@ const FoodCard = (props) => {
           }}
           onClick={handleAddToCart}
         >
-          Add to Cart
+          <Typography variant="h6">Add to Cart</Typography>
         </Button>
       </Box>
     </Card>

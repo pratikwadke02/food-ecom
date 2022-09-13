@@ -77,6 +77,7 @@ const Menu = () => {
         width: "100%",
         maxWidth: "1400px",
         m:'auto',
+        p:5,
       }}
     >
       <Box sx={{textAlign:'center'}}>
