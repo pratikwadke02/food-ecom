@@ -1,54 +1,107 @@
 import React from "react";
-import './Cart.css';
+import { Box, Typography, Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import OrderComponent from "../../components/OrderComponent/OrderComponent";
+import {Link} from 'react-router-dom'
+import {theme} from '../../theme'
 
 const Cart = () => {
+
+
+  const cartData = useSelector((state) => state.cart.cart);
+
   return (
     <>
-      <div className="Cart-Container"></div>
+    <Box sx={{ width: "100%", m: "auto", textAlign: "center", pb: 2 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              color: theme.palette.primary.main,
+              fontWeight: theme.typography.fontWeightBold,
+            }}
+          >
+            CART
+          </Typography>
+          <div
+            className="darkbar"
+            style={{ margin: "auto", marginTop: "20px" }}
+          ></div>
+        </Box>
 
-      <div className="Header">
-        <h3 className="Heading">Shopping Cart</h3>
-        <h5 className="Action">Remove all</h5>
-      </div>
-
-      <div className="Cart-Items">
-        <div className="image-box">
-          <img src="images/apple.png" style={{ height: "120px" }} />
-        </div>
-        <div className="about">
-          <h1 className="title">Apple Juice</h1>
-          <h3 className="subtitle">250ml</h3>
-          <img src="images/veg.png" style={{ height: "30px" }} />
-        </div>
-        <div className="counter"></div>
-        <div className="prices"></div>
-      </div>
-
-      <div className="counter">
-        <div className="btn">+</div>
-        <div className="count">2</div>
-        <div className="btn">-</div>
-      </div>
-
-      <div className="prices">
-        <div className="amount">$2.99</div>
-        <div className="save">
-          <u>Save for later</u>
-        </div>
-        <div className="remove">
-          <u>Remove</u>
-        </div>
-      </div>
-      <div className="checkout">
-        <div className="total">
-          <div>
-            <div className="Subtotal">Sub-Total</div>
-            <div className="items">2 items</div>
-          </div>
-          <div className="total-amount">$6.18</div>
-        </div>
-        <button className="button">Checkout</button>
-      </div>
+        {cartData.length === 0 ? (
+          <Box
+            sx={{ width: "100%", m: "auto", textAlign: "center", pb: 2, mt: 10 }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                color: theme.palette.text.main,
+                fontWeight: theme.typography.fontWeightMedium,
+              }}
+            >
+              Cart Is Empty
+            </Typography>
+            <Link to="/shop" style={{textDecoration:'none'}}>
+              <Button variant="contained" color="primary" sx={{mt:3}}>
+                <Typography variant="h6">Shop Now</Typography>
+              </Button>
+            </Link>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              maxWidth: "1300px",
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "flex-start",
+              justifyContent: "center",
+              width: "100%",
+              m: "auto",
+            }}
+          >
+            <Box
+              sx={{
+                maxWidth: "800px",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: theme.palette.background.default,
+                borderRadius: "5px",
+                p: 2,
+                width: "100%",
+                boxShadow: 1,
+                mr: { xs: 0, md: 2 },
+              }}
+            >
+              <OrderComponent />
+            </Box>
+            <Box
+              sx={{
+                maxWidth: "400px",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: theme.palette.background.default,
+                borderRadius: "5px",
+                p: 2,
+                width: "100%",
+                boxShadow: 1,
+                ml: { xs: 0, md: 2 },
+                m: { xs: "auto", md: 0 },
+                mt: { xs: 4, md: 0 },
+              }}
+            >
+              {/* <PaymentDetails
+                totalDiscountPrice={getTotalPrice().totalDiscountPrice}
+                totalPrice={getTotalPrice().totalPrice}
+                totalDiscount={calculateDiscount(
+                  getTotalPrice().totalPrice,
+                  getTotalPrice().totalDiscountPrice
+                )}
+              /> */}
+            </Box>
+          </Box>
+        )}
     </>
   );
 };
