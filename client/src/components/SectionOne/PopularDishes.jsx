@@ -37,7 +37,7 @@ const PopularDishes = () => {
     }}>
         <Box sx={{textAlign:'center', mb:3}}>
             <Typography variant="h3" sx={{color:theme.palette.background.light, fontWeight:theme.typography.fontWeightBold}}>
-                Popular Dishes
+                POPULAR DISHES
             </Typography>
         </Box>
         <Box sx={{

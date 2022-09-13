@@ -6,7 +6,7 @@ export const login = (authInfo, router) => async(dispatch) => {
     try{
         const {data} = await api.login(authInfo);
         dispatch({ type : AUTH, data });
-        router('/');
+        router('/home');
     }catch(error){
         console.log(error);
     }
@@ -16,7 +16,7 @@ export const register = (authInfo, router) => async(dispatch) => {
     try{
         const {data} = await api.register(authInfo);
         dispatch({ type : AUTH, data });
-        router('/');
+        router('/home');
     }catch(error){
         console.log(error);
     }
@@ -25,7 +25,7 @@ export const register = (authInfo, router) => async(dispatch) => {
 export const logout = (router) => async(dispatch) => {
     try{
         dispatch({ type : AUTH, data : null });
-        router('/login');
+        router('/');
     }catch(error){
         console.log(error);
     }

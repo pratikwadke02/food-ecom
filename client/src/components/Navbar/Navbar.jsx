@@ -20,7 +20,7 @@ import {logout} from '../../actions/auth';
 const pages = [
     {
         name: 'Home',
-        path: '/',
+        path: '/home',
     },
     {
         name: 'Cart',

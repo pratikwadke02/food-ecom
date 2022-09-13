@@ -8,6 +8,7 @@ import Menu from "../../components/SectionTwo/Menu";
 const Home = () => {
   return (
     <>
+      <Navbar />
       <HeadBanner />
       <PopularDishes />
       <Menu />

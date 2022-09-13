@@ -5,6 +5,7 @@ import OrderComponent from "../../components/OrderComponent/OrderComponent";
 import {Link} from 'react-router-dom'
 import {theme} from '../../theme'
 import PaymentSummary from "../../components/PaymentSummary/PaymentSummary";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Cart = () => {
 
@@ -22,7 +23,8 @@ const Cart = () => {
 
   return (
     <>
-    <Box sx={{ width: "100%", m: "auto", textAlign: "center", pb: 2 }}>
+    <Navbar />
+    <Box sx={{ width: "100%", m: "auto", textAlign: "center", mt:10 }}>
           <Typography
             variant="h2"
             sx={{
