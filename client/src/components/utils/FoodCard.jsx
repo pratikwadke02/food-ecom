@@ -30,7 +30,9 @@ const FoodCard = (props) => {
       <Box sx={{display:'flex', justifyContent:'center'}}>
         <img 
         src={image} 
-        alt="" />
+        alt="" 
+        style={{ width: "100%", height: "100%", maxHeight: "400px" }}
+        />
       </Box>
       <Box
         sx={{

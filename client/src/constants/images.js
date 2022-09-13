@@ -11,6 +11,15 @@ import tandurMomo from '../assets/images/tandur momo.jpeg';
 import dish_4 from '../assets/images/dish-4.png';
 import dish_5 from '../assets/images/dish-5.png';
 import frenchfrie from '../assets/images/frenchfrie.jpeg';
+import menu_1 from '../assets/images/menu-1.jpg';
+import menu_2 from '../assets/images/menu-2.jpg';
+import menu_3 from '../assets/images/menu-3.jpg';
+import menu_4 from '../assets/images/menu-4.jpg';
+import menu_5 from '../assets/images/menu-5.jpg';
+import menu_6 from '../assets/images/menu-6.jpg';
+import menu_7 from '../assets/images/menu-7.jpg';
+import menu_8 from '../assets/images/menu-8.jpg';
+import menu_9 from '../assets/images/menu-9.jpg';
 
 export default {
     streammomo,
@@ -26,4 +35,13 @@ export default {
     dish_4,
     dish_5,
     frenchfrie,
+    menu_1,
+    menu_2,
+    menu_3,
+    menu_4,
+    menu_5,
+    menu_6,
+    menu_7,
+    menu_8,
+    menu_9
 }
