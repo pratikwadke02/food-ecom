@@ -2,7 +2,7 @@ import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 // material
 import {
   Card,
@@ -32,12 +32,11 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: true },
-  { id: 'courseName', label: 'Course Name', alignRight: true },
-  { id: 'phone', label: 'Phone', alignRight: true },
-  { id: 'email', label: 'Email', alignRight: true },
-  { id: 'paymentStatus', label: 'Payment Status', alignRight: true },
-  { id: '' },
+  { id: 'name', label: 'Orders', alignRight: true },
+  { id: 'courseName', label: 'Total', alignRight: true },
+  { id: 'phone', label: 'Address', alignRight: true },
+  { id: 'email', label: 'City', alignRight: true },
+  { id: 'paymentStatus', label: 'Pincode', alignRight: true },
 ];
 
 // ----------------------------------------------------------------------
@@ -72,16 +71,18 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function User() {
-  const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // const getUserData = async () => {
-    //   const { data } = await axios.get('http://yogajagriti.com:5000/api/yoga/getAllStudents');
-    //   setUsers(data);
-    //   console.log(users);
-    // };
-    // getUserData();
+    const getUserData = async () => {
+      const { data } = await axios.get('http://localhost:5000/api/food-ecom/getAllOrders');
+      setOrders(data);
+      console.log(orders);
+    };
+    getUserData();
   }, []);
+
+  console.log(orders);
 
   const [page, setPage] = useState(0);
 
@@ -103,7 +104,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.id);
+      const newSelecteds = orders.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -138,9 +139,9 @@ export default function User() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - orders.length) : 0;
 
-  const filteredUsers = applySortFilter(users, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(orders, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -150,11 +151,8 @@ export default function User() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Student
+            Orders
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Student
-          </Button>
         </Stack>
 
         <Card>
@@ -167,14 +165,14 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={users.length}
+                  rowCount={orders.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
-                    const { id, firstName,lastName, courseName, phone, email } = user;
+                  {orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                    const { id, address, city, pincode, foodItems, total } = user;
                     const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
@@ -192,27 +190,21 @@ export default function User() {
                         <TableCell align="center">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Typography variant="subtitle2" noWrap>
-                              {firstName} {lastName}
+                              {foodItems.map((item) => (
+                                <div>
+                                  <p>{item.name} - {item.quantity}</p>
+                                </div>
+                              ))}
                             </Typography>
                           </Stack>
                         </TableCell>
-                        <TableCell align="left">{courseName}</TableCell>
-                        <TableCell align="left">{phone}</TableCell>
-                        <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{total}</TableCell>
+                        <TableCell align="left">{address}</TableCell>
+                        <TableCell align="left">{city}</TableCell>
                         <TableCell align="left">
-                          {/* <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
-                            {sentenceCase(status)}
-                          </Label>  */}
-                          Payment Status
+                          {pincode}
                         </TableCell>
 
-                        <TableCell align="right">
-                          <RouterLink to ={`/dashboard/student/${id}`} style={{textDecoration:'none'}}>
-                          <Button variant="contained">
-                            View
-                          </Button>
-                          </RouterLink>
-                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -239,7 +231,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={users.length}
+            count={orders.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
