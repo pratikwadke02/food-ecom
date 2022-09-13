@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField/TextField";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import {clearCart} from '../../actions/cart';
 
 const PaymentSummary = (props) => {
   const { totalPrice } = props;
@@ -31,10 +33,20 @@ const PaymentSummary = (props) => {
     console.log(OrderDetails);
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try{
       axios.post("http://localhost:5000/api/food-ecom/createOrder", OrderDetails);
+      setOrderDetails({
+        address: "",
+        city: "",
+        pincode: "",
+        total: 0,
+        foodItems: [],
+      });
+      dispatch(clearCart());
     }catch(error){
       console.log(error);
     }
